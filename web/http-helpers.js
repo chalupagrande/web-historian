@@ -2,6 +2,7 @@ var path = require('path');
 var fs = require('fs');
 var archive = require('../helpers/archive-helpers');
 
+
 exports.headers = headers = {
   "access-control-allow-origin": "*",
   "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
@@ -10,10 +11,14 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveAssets = function(res, asset, callback) {
-  // Write some code here that helps serve up your static files!
-  // (Static files are things like html (yours or archived from others...),
-  // css, or anything that doesn't change often.)
+exports.serveAssets = function(res, asset, callback, statusCode) {
+  statusCode = statusCode || 200;
+  res.writeHead(statusCode, headers);
+  res.end(JSON.stringify(asset));
+
+  // I am not sure what the call back does yet. 
+  if(callback){ callback() } ;
+
 };
 
 
