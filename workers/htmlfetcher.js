@@ -1,7 +1,9 @@
 // Use the code in `archive-helpers.js` to actually download the urls
 // that are waiting.
 var helpers = require('../helpers/archive-helpers.js')
-var path = require('path');
-var httpHelpers = require('../web/http-helpers');
 
 
+
+// check the txt file
+// download the new urls
+// put the data in folders in sites
