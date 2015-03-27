@@ -1,5 +1,6 @@
 var path = require('path');
 var archive = require('../helpers/archive-helpers');
+var httpHelpers = require('./http-helpers');
 // require more modules/folders here!
 
 
@@ -8,27 +9,26 @@ var archive = require('../helpers/archive-helpers');
 var actions = {
 
   'GET': function(req, res){
-    var asset = 'index.html';
-    serveAssets(res, asset, cb, 200);
+    var file = archive.paths.siteAssets + "/index.html";
+    // debugger;
+    httpHelpers.serveAssets(res, file);
   },
 
-  'POST': function(req, res, asset){
-    serveAssets(res, asset, callback, 201)
+  'POST': function(req, res, file){
+    httpHelpers.serveAssets(res, file, callback, 201)
   },
 
   'OPTIONS': function(req, res){
-    serveAssets(res, " empty response ")
+    httpHelpers.serveAssets(res, " empty response ")
   }
 
 }// END ROUTER
 
 
 exports.handleRequest = function (req, res) {
-  res.end(archive.paths.list);
+  // res.end(archive.paths.list);
 
   var action = actions[req.method];
-
-
   //if GET 
     // index.html
   //if POST 
@@ -42,6 +42,6 @@ exports.handleRequest = function (req, res) {
   if (action){
     action(req, res);
   } else {
-    serveAssets(res, "Invalid request", null, 404);
+    httpHelpers.serveAssets(res, "Invalid request", null, 404);
   }
 };

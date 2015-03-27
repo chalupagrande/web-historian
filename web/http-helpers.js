@@ -11,13 +11,23 @@ exports.headers = headers = {
   'Content-Type': "text/html"
 };
 
-exports.serveAssets = function(res, asset, callback, statusCode) {
+exports.serveAssets = function(res, file, callback, statusCode) {
   statusCode = statusCode || 200;
   res.writeHead(statusCode, headers);
-  res.end(JSON.stringify(asset));
 
-  // I am not sure what the call back does yet. 
-  if(callback){ callback() } ;
+
+  fs.readFile(file, function(err, data){
+    // debugger;
+    if(err){
+      console.log("THE ERROR IS " + err)
+      throw err;
+    }
+    res.end(data);
+  });
+
+
+  // // I am not sure what the call back does yet. 
+  // if(callback){ callback() } ;
 
 };
 
