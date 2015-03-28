@@ -8,3 +8,15 @@ var helpers = require('../helpers/archive-helpers.js')
 // download the new urls
 // put the data in folders in sites
 
+helpers.readListOfUrls(function(urlArray){
+  for (var i = 0; i < urlArray.length; i++){
+    if (helpers.isUrlArchived(urlArray[i], function(boolean){
+
+        if(!boolean){
+          //scrape
+          
+          
+        }
+    }))
+  }
+})

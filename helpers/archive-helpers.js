@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path = require('path');
 var _ = require('underscore');
+// var httpHelpers = require("./http-helpers");
 
 /*
  * You will need to reuse the same paths many times over in the course of this sprint.
@@ -68,9 +69,16 @@ exports.addUrlToList = function(url){
 };
 
 exports.isUrlArchived = function(url, cb){
-  var folderPath = exports.paths.archivedSites + url;
+  var folderPath = exports.paths.archivedSites + '/' + url;
   fs.exists(folderPath, function(exists){
-    exists ? true : false;
+    if (exists) {
+      if(cb){
+        cb(folderPath)
+      }
+    } else {
+      var loading = exports.paths.siteAssets + "/loading.html"
+      httpHelpers.serveAssets(res,loading, null, 302);
+    }
   })
 
 };

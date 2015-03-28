@@ -12,15 +12,27 @@ var actions = {
   },
 
   'POST': function(req, res){
-    var file = archive.paths.archivedSites;
+    var archivedSites = archive.paths.archivedSites;
     var fullbody = ""
     req.on('data', function(data){
       fullbody+= data;
     })
     req.on('end', function(){
       fullbody = fullbody.slice(4);
+      console.log("FULLBODY: ", fullbody)
       if(archive.isUrlInList(fullbody)){
-        httpHelpers.serveAssets(res, file)
+        debugger;
+
+        archive.isUrlArchived(fullbody, function(boolean){
+
+          if(boolean){
+            httpHelpers.serveAssets(res, folderPath);
+          }else{
+            var loading = archive.paths.siteAssets + "/loading.html"
+            httpHelpers.serveAssets(res,loading, null, 302)
+          }
+        })
+
       }else{
         archive.addUrlToList(fullbody);
         var loading = archive.paths.siteAssets + "/loading.html"
