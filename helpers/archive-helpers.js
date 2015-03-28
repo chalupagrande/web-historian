@@ -30,7 +30,6 @@ var lineNumber = 0;
 exports.readListOfUrls = function(){
   var listPath = exports.paths.list;
   var list = "";
-  debugger;
   fs.readFile(listPath, function(err, data){
     if(err){
       console.log(err)
@@ -49,7 +48,7 @@ exports.isUrlInList = function(url){
 };
 
 exports.addUrlToList = function(url){
-  url = "/n" + url;
+  url = "\n" + url;
   fs.appendFile(exports.paths.list, url, function(err){
     if(err){
       console.log(err)
