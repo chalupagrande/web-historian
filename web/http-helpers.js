@@ -20,7 +20,7 @@ exports.serveAssets = function(res, file, callback, statusCode) {
     // debugger;
     if(err){
       console.log("THE ERROR IS " + err)
-      throw err;
+
     }
     res.end(data);
   });

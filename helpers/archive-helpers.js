@@ -30,7 +30,8 @@ var lineNumber = 0;
 exports.readListOfUrls = function(){
   var listPath = exports.paths.list;
   var list = "";
-  fs.readFile(data, function(err, data){
+  debugger;
+  fs.readFile(listPath, function(err, data){
     if(err){
       console.log(err)
     }
@@ -40,7 +41,7 @@ exports.readListOfUrls = function(){
 };
 
 exports.isUrlInList = function(url){
-  var list = readListOfUrls()
+  var list = exports.readListOfUrls()
   if(list.indexOf(url) > -1){
     return true;
   }
@@ -58,8 +59,30 @@ exports.addUrlToList = function(url){
   
 };
 
-exports.isUrlArchived = function(){
+exports.isUrlArchived = function(url){
+  var folderPath = exports.paths.archivedSites + url;
+  fs.exists(folderPath, function(exists){
+    exists ? true : false;
+  })
+
 };
 
 exports.downloadUrls = function(){
+  var file = exports.paths.list;
+  fs.readFile(file, function(err, data){
+    if(err){
+      console.log ("THIS IS THE ERROR : " + err);
+      throw err
+    }else{
+      var urlArray = data.split("/n");
+      for(var i = 0; i < urlArray.length; i++){
+        if(!isUrlArchived(urlArray[i])){
+          //scrape the site
+          debugger;
+        }
+      }
+    }
+
+  })
+
 };

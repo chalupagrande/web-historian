@@ -11,8 +11,25 @@ var actions = {
     httpHelpers.serveAssets(res, file);
   },
 
-  'POST': function(req, res, file){
-    httpHelpers.serveAssets(res, file, callback, 201)
+  'POST': function(req, res){
+    var file = archive.paths.archivedSites;
+    var fullbody = ""
+    req.on('data', function(data){
+      fullbody+= data;
+    })
+    req.on('end', function(){
+      fullbody = fullbody.slice(4);
+
+      if(archive.isUrlInList(fullbody)){
+        httpHelpers.serveAssets(res, file )
+      }else{
+        archive.addUrlToList(fullbody);
+      }
+
+      //fullbody
+      //see if file exists 
+
+    })
   },
 
   'OPTIONS': function(req, res){
