@@ -27,27 +27,34 @@ exports.initialize = function(pathsObj){
 
 var lineNumber = 0;
 
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(cb){
   var listPath = exports.paths.list;
-  var list = "";
+  
   fs.readFile(listPath, function(err, data){
     if(err){
       console.log(err)
+      throw err;
     }
-    list = data;
+    if(cb){
+      cb(data.toString().split("\n"));
+    }
   })
-  return list;
+  //do callback here
 };
 
-exports.isUrlInList = function(url){
-  var list = exports.readListOfUrls()
-  if(list.indexOf(url) > -1){
-    return true;
-  }
-  return false;
+exports.isUrlInList = function(url, cb){
+  exports.readListOfUrls(function(data){
+    //data is array
+    if(data.indexOf(url) > -1){
+      debugger;
+      return true;
+    }
+    debugger;
+    return false;
+  })
 };
 
-exports.addUrlToList = function(url){
+exports.addUrlToList = function(url, cb){
   url = "\n" + url;
   fs.appendFile(exports.paths.list, url, function(err){
     if(err){
@@ -58,7 +65,7 @@ exports.addUrlToList = function(url){
   
 };
 
-exports.isUrlArchived = function(url){
+exports.isUrlArchived = function(url, cb){
   var folderPath = exports.paths.archivedSites + url;
   fs.exists(folderPath, function(exists){
     exists ? true : false;

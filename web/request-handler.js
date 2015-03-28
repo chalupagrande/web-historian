@@ -19,9 +19,8 @@ var actions = {
     })
     req.on('end', function(){
       fullbody = fullbody.slice(4);
-
       if(archive.isUrlInList(fullbody)){
-        httpHelpers.serveAssets(res, file )
+        httpHelpers.serveAssets(res, file)
       }else{
         archive.addUrlToList(fullbody);
         var loading = archive.paths.siteAssets + "/loading.html"
