@@ -24,7 +24,7 @@ var actions = {
       }else{
         archive.addUrlToList(fullbody);
         var loading = archive.paths.siteAssets + "/loading.html"
-        httpHelpers.serveAssets(res,loading)
+        httpHelpers.serveAssets(res,loading, null, 302)
       }
 
       //fullbody

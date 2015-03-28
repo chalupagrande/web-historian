@@ -54,8 +54,10 @@ exports.isUrlInList = function(url, cb){
   })
 };
 
-exports.addUrlToList = function(url, cb){
-  url = "\n" + url;
+exports.addUrlToList = function(url){
+
+  debugger;
+  url += "\n";
   fs.appendFile(exports.paths.list, url, function(err){
     if(err){
       console.log(err)
